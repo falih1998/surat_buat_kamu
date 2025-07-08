@@ -140,5 +140,35 @@
 <script src="js/main.js"></script>
 <script src="js/penutup.js"></script>
 <script src="https://htmlku.com/suratbuatmu/script.js"></script>
+<script>
+document.getElementById("open").onclick = () => {
+  // Buka amplop
+  document.getElementById("envelope").classList.remove("close");
+  document.getElementById("envelope").classList.add("open");
+  document.querySelector(".overlay").style.display = "none";
+
+  // Sembunyikan dulu kamera selfie
+  document.getElementById("modalSelfie").style.display = "none";
+
+  // Ketik pesan satu-satu
+  new TypeIt(".messageC", {
+    speed: 45,
+    waitUntilVisible: true
+  })
+  .type(document.getElementById("pesanSurat1").innerHTML)
+  .pause(600)
+  .break()
+  .type(document.getElementById("pesanSurat2").innerHTML)
+  .pause(600)
+  .break()
+  .type(document.getElementById("pesanSurat3").innerHTML)
+  .pause(500)
+  .exec(() => {
+    // Setelah semua pesan selesai, baru tampilkan kamera
+    document.getElementById("modalSelfie").style.display = "block";
+  })
+  .go();
+};
+</script>
 </body>
 </html>
