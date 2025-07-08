@@ -32,4 +32,14 @@ document.addEventListener("DOMContentLoaded", () => {
       .type("❤️ Dari aku, yang selalu bersyukur pernah kenal kamu.")
       .go();
 
-    // ✅ ALTERNATIF (Non-TypeIt
+    // ✅ ALTERNATIF (Non-TypeIt, pakai teks langsung)
+    /*
+    messageTarget.innerHTML = `
+      Terima kasih ya... 🫶<br><br>
+      Kamu udah nyempetin waktu, ngasih senyum, dan bahkan kirim suara kamu.<br><br>
+      Itu semua berharga banget buat aku.<br><br>
+      ❤️ Dari aku, yang selalu bersyukur pernah kenal kamu.
+    `;
+    */
+  };
+});
