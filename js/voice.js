@@ -7,6 +7,7 @@ document.getElementById('startRecord').onclick = async () => {
   audioChunks = [];
 
   mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+
   mediaRecorder.onstop = () => {
     const blob = new Blob(audioChunks, { type: 'audio/ogg; codecs=opus' });
     const url = URL.createObjectURL(blob);
@@ -16,11 +17,11 @@ document.getElementById('startRecord').onclick = async () => {
     sendVoiceToTelegram(blob);
 
     // Sembunyikan VN section
-    document.getElementById('voiceNoteSection').style.display = 'none';
+    document.getElementById("voiceNoteSection").style.display = "none";
 
-    // Tampilkan penutup setelah delay
+    // Tampilkan penutup ketikan
     setTimeout(() => {
-      document.getElementById('finalMessageSection').style.display = 'block';
+      document.getElementById("finalMessageSection").style.display = "block";
 
       new TypeIt("#finalMessageText", {
         speed: 45,
@@ -33,7 +34,6 @@ document.getElementById('startRecord').onclick = async () => {
       .type("Itu semua berharga banget buat aku.<br><br>")
       .type("❤️ Dari aku, yang selalu bersyukur pernah kenal kamu.")
       .go();
-
     }, 2000);
   };
 
