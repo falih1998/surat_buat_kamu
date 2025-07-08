@@ -14,9 +14,9 @@ openBtn.addEventListener("click", () => {
   envwrap.classList.remove("close");
   envwrap.classList.add("open");
 
-  // Tampilkan modal kamera setelah animasi selesai (3 detik)
+  // Tampilkan modal kamera setelah animasi selesai (10 detik)
   setTimeout(() => {
     modalSelfie.style.display = "flex";
     startCamera();
-  }, 3000);
+  }, 10000);
 });
