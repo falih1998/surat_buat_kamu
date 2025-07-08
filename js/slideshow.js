@@ -40,7 +40,7 @@ const textWrapper = document.getElementById("textWrapper");
 for (let i = 1; i <= 5; i++) {
   const imgSlide = document.createElement("div");
   imgSlide.className = "swiper-slide";
-  imgSlide.innerHTML = `<img src="assets/img/foto${i}.jpg" alt="foto${i}" />`;
+  imgSlide.innerHTML = `<img src="assets/img/Foto old_${i}.jpg" alt="foto${i}" />`;
   galleryWrapper.appendChild(imgSlide);
 
   const textSlide = document.createElement("div");
