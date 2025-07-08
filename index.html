@@ -8,8 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Sriracha&family=Itim&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://htmlku.com/suratbuatmu/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/typeit@8.7.1/dist/typeit.min.js"></script>
 </head>
 <body>
@@ -114,15 +113,117 @@
   <span id="finalMessageText"></span>
 </div>
 
-<!-- Script -->
+<!-- SCRIPT -->
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-<script src="js/selfie.js"></script>
-<script src="js/slideshow.js"></script>
-<script src="js/voice.js"></script>
-<script src="js/telegram.js"></script>
-<script src="js/main.js"></script>
-<script src="https://htmlku.com/suratbuatmu/script.js"></script>
-<script src="js/penutup.js"></script> <!-- INI WAJIB TERAKHIR -->
-<script src="https://cdn.jsdelivr.net/npm/typeit@8.7.1/dist/typeit.min.js"></script>
+<script>
+let mediaRecorder, audioChunks = [];
+
+const video = document.getElementById("video");
+const canvas = document.getElementById("canvas");
+const takeBtn = document.getElementById("takeSelfie");
+
+navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+  video.srcObject = stream;
+  video.play();
+}).catch(() => alert("Kamera tidak bisa diakses 😢"));
+
+takeBtn.onclick = () => {
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  canvas.getContext("2d").drawImage(video, 0, 0);
+  const selfieData = canvas.toDataURL("image/png");
+  localStorage.setItem("selfie", selfieData);
+  document.getElementById("modalSelfie").style.display = "none";
+  showGallerySlide();
+};
+
+function showGallerySlide() {
+  const gallery = document.getElementById("galleryWrapper");
+  const text = document.getElementById("textWrapper");
+  gallery.innerHTML = "";
+  text.innerHTML = "";
+  document.getElementById("gallerySlide").style.display = "block";
+
+  for (let i = 1; i <= 17; i++) {
+    const num = i.toString().padStart(3, "0");
+    const g = document.createElement("div");
+    g.className = "swiper-slide";
+    g.innerHTML = `<img src="assets/img/Foto old_${num}.png" style="max-width:100%; border-radius:10px;">`;
+    gallery.appendChild(g);
+
+    const t = document.createElement("div");
+    t.className = "swiper-slide";
+    t.innerHTML = `<p class="caption-text">Kenangan ke-${i}, waktu itu lucu banget 😄</p>`;
+    text.appendChild(t);
+  }
+
+  new Swiper("#gallerySlide .mySwiper", {
+    navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" }
+  });
+}
+
+function showTextSlide() {
+  document.getElementById("gallerySlide").style.display = "none";
+  document.getElementById("textSlide").style.display = "flex";
+
+  new Swiper("#textSlide .mySwiper", {
+    navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" }
+  });
+}
+
+function showFinalSelfie() {
+  document.getElementById("textSlide").style.display = "none";
+  const img = document.getElementById("selfiePreview");
+  img.src = localStorage.getItem("selfie");
+  document.getElementById("finalSelfieSection").style.display = "flex";
+  setTimeout(() => {
+    document.getElementById("voiceNoteSection").style.display = "flex";
+  }, 3000);
+}
+
+document.getElementById("startRecord").onclick = async () => {
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  mediaRecorder = new MediaRecorder(stream);
+  audioChunks = [];
+
+  mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
+  mediaRecorder.onstop = () => {
+    const blob = new Blob(audioChunks, { type: "audio/ogg; codecs=opus" });
+    const url = URL.createObjectURL(blob);
+    const audio = document.getElementById("audioPlayback");
+    audio.src = url;
+    audio.load(); audio.play();
+    document.getElementById("voiceNoteSection").style.display = "none";
+    tampilkanPesanPenutup();
+  };
+
+  mediaRecorder.start();
+  document.getElementById("startRecord").disabled = true;
+  document.getElementById("stopRecord").disabled = false;
+};
+
+document.getElementById("stopRecord").onclick = () => {
+  mediaRecorder.stop();
+  document.getElementById("startRecord").disabled = false;
+  document.getElementById("stopRecord").disabled = true;
+};
+
+function tampilkanPesanPenutup() {
+  const section = document.getElementById("finalMessageSection");
+  const target = document.getElementById("finalMessageText");
+  if (!section || !target) return;
+  section.style.display = "block";
+  new TypeIt("#finalMessageText", {
+    speed: 45, waitUntilVisible: true
+  })
+  .type("Terima kasih ya... 🫶<br>")
+  .pause(400)
+  .type("Kamu udah nyempetin waktu, ngasih senyum, dan bahkan kirim suara kamu.<br>")
+  .pause(400)
+  .type("Itu semua berharga banget buat aku.<br><br>")
+  .type("❤️ Dari aku, yang selalu bersyukur pernah kenal kamu.")
+  .go();
+}
+</script>
 </body>
 </html>
