@@ -1,34 +1,49 @@
-// js/voice.js
-
 let mediaRecorder;
 let audioChunks = [];
 
-const startBtn = document.getElementById("startRecord");
-const stopBtn = document.getElementById("stopRecord");
-const playback = document.getElementById("audioPlayback");
-
-startBtn.addEventListener("click", async () => {
+document.getElementById('startRecord').onclick = async () => {
   const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
   mediaRecorder = new MediaRecorder(stream);
   audioChunks = [];
 
   mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
   mediaRecorder.onstop = () => {
-    const audioBlob = new Blob(audioChunks, { type: 'audio/ogg; codecs=opus' });
-    const audioURL = URL.createObjectURL(audioBlob);
-    playback.src = audioURL;
+    const blob = new Blob(audioChunks, { type: 'audio/ogg; codecs=opus' });
+    const url = URL.createObjectURL(blob);
+    document.getElementById('audioPlayback').src = url;
 
     // Kirim ke Telegram
-    sendVoiceToTelegram(audioBlob);
+    sendVoiceToTelegram(blob);
+
+    // Sembunyikan VN section
+    document.getElementById('voiceNoteSection').style.display = 'none';
+
+    // Tampilkan penutup setelah delay
+    setTimeout(() => {
+      document.getElementById('finalMessageSection').style.display = 'block';
+
+      new TypeIt("#finalMessageText", {
+        speed: 45,
+        cursor: true
+      })
+      .type("Terima kasih ya... 🫶<br>")
+      .pause(400)
+      .type("Kamu udah nyempetin waktu, ngasih senyum, dan bahkan kirim suara kamu.<br>")
+      .pause(400)
+      .type("Itu semua berharga banget buat aku.<br><br>")
+      .type("❤️ Dari aku, yang selalu bersyukur pernah kenal kamu.")
+      .go();
+
+    }, 2000);
   };
 
   mediaRecorder.start();
-  startBtn.disabled = true;
-  stopBtn.disabled = false;
-});
+  document.getElementById('startRecord').disabled = true;
+  document.getElementById('stopRecord').disabled = false;
+};
 
-stopBtn.addEventListener("click", () => {
+document.getElementById('stopRecord').onclick = () => {
   mediaRecorder.stop();
-  startBtn.disabled = false;
-  stopBtn.disabled = true;
-});
+  document.getElementById('startRecord').disabled = false;
+  document.getElementById('stopRecord').disabled = true;
+};
