@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Surat Spesial Buat Kamu ✨</title>
+
+  <!-- Fonts & CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Sriracha&family=Itim&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://htmlku.com/suratbuatmu/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<!-- Background & Audio -->
+<div id="bodyblur">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjmndn5rY6lsKgvEGe-g_m8UhV9TBGTN3Kc_OmOKdrsv9Av_vPoTrgOOEsuLDAiv9kDo70sBd-Yc4AzTN4fhaS18wGCgbhIsxaPucPTDoK-BvpI7DWW7oCbLKjd3mphy-3LsVec_kbMgx6R8qe9F7dse58dK4myDDdrpTzze5tbEwsbRud5EFgqd57lRWJ3/s1308/1000320578.jpg" id="wallpaper" />
+  <div id="thisblur"></div>
+</div>
+<audio src="https://feeldreams.github.io/audio/thousand.mp3" id="linkmp3" autoplay loop></audio>
+
+<!-- Amplop Surat -->
+<div id="envwrap" class="envlope-wrapper">
+  <div id="envelope" class="close">
+    <div class="wax-seal"></div>
+    <div class="front flap"></div>
+    <div class="front pocket"></div>
+    <div class="letter">
+      <div class="letter-corner corner-tl"></div>
+      <div class="letter-corner corner-br"></div>
+      <div class="message">
+        <p>Alooo Kamuu! 🩷</p>
+        <p>......</p>
+      </div>
+    </div>
+    <div class="hearts">
+      <div class="heart a1"></div>
+      <div class="heart a2"></div>
+      <div class="heart a3"></div>
+    </div>
+    <div class="sparkles">
+      <div class="sparkle s1"></div>
+      <div class="sparkle s2"></div>
+      <div class="sparkle s3"></div>
+    </div>
+  </div>
+</div>
+<div class="reset">
+  <button id="open">Buka Surat 🩷</button>
+</div>
+
+<!-- Modal Selfie -->
+<div id="modalSelfie" style="display:none">
+  <p>Boleh selfie kamu dulu? 📸</p>
+  <video id="video" autoplay playsinline width="250"></video>
+  <button id="takeSelfie">Ambil Foto</button>
+  <canvas id="canvas" style="display:none;"></canvas>
+</div>
+
+<!-- Galeri Foto -->
+<div id="gallerySlide" style="display:none">
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper" id="galleryWrapper"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+  <button class="next-button" onclick="showTextSlide()">Lanjut ke Pesan 💌</button>
+</div>
+
+<!-- Caption Teks -->
+<div id="textSlide" style="display:none">
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper" id="textWrapper"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+  <button class="next-button" onclick="showFinalSelfie()">Lanjut ✨</button>
+</div>
+
+<!-- Final Selfie + Pesan Bangga -->
+<div id="finalSelfieSection" style="display:none; flex-direction: column; align-items: center; padding: 20px; color: white;">
+  <img id="selfiePreview" style="max-width: 300px; border-radius: 10px; box-shadow: 0 0 15px rgba(255,255,255,0.2); margin-bottom: 20px;" />
+  <p>Aku bangga banget sama kamu. Kamu mau ngomong sesuatu juga? 🎤</p>
+</div>
+
+<!-- Voice Note -->
+<div id="voiceNoteSection" style="display:none; flex-direction: column; align-items: center; padding: 20px; color: white;">
+  <p>Kirim voice note kamu ya 🥺</p>
+  <button id="startRecord">Mulai Rekam</button>
+  <button id="stopRecord" disabled>Stop</button>
+  <audio id="audioPlayback" controls style="margin-top: 20px;"></audio>
+</div>
+
+<!-- JS Libs -->
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<script src="js/selfie.js"></script>
+<script src="js/slideshow.js"></script>
+<script src="js/voice.js"></script>
+<script src="js/telegram.js"></script>
+<script src="js/main.js"></script>
+<script src="https://htmlku.com/suratbuatmu/script.js"></script>
+</body>
+</html>
