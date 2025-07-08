@@ -12,7 +12,7 @@ function showGallerySlide() {
   const totalImages = 17;
 
   for (let i = 1; i <= totalImages; i++) {
-    const num = i.toString().padStart(3, '3'); // 001, 002, dst
+    const num = i.toString().padStart(3, '0'); // 001, 002, dst
     const imageSrc = `assets/img/Foto old_${num}.png`;
 
     // Gambar
