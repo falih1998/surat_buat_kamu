@@ -1,113 +1,126 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Surat Spesial Buat Kamu ✨</title>
-
-  <!-- Fonts & Style -->
-  <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Sriracha&family=Itim&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://htmlku.com/suratbuatmu/style.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
-  <link rel="stylesheet" href="css/main.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Sriracha&family=Itim&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://htmlku.com/suratbuatmu/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
 </head>
 <body>
 
-  <!-- Background & Audio -->
-  <div id="bodyblur">
-    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjmndn5rY6lsKgvEGe-g_m8UhV9TBGTN3Kc_OmOKdrsv9Av_vPoTrgOOEsuLDAiv9kDo70sBd-Yc4AzTN4fhaS18wGCgbhIsxaPucPTDoK-BvpI7DWW7oCbLKjd3mphy-3LsVec_kbMgx6R8qe9F7dse58dK4myDDdrpTzze5tbEwsbRud5EFgqd57lRWJ3/s1308/1000320578.jpg" id="wallpaper" />
-    <div id="thisblur"></div>
-  </div>
-  <audio src="https://feeldreams.github.io/audio/thousand.mp3" id="linkmp3" autoplay loop></audio>
-
-  <!-- Amplop Surat -->
-  <div id="envwrap" class="envlope-wrapper">
-    <div id="envelope" class="close">
-      <div class="wax-seal"></div>
-      <div class="front flap"></div>
-      <div class="front pocket"></div>
-      <div class="letter">
-        <div class="letter-corner corner-tl"></div>
-        <div class="letter-corner corner-br"></div>
-        <div class="message">
-          <p>Alooo Kamuu! 🩷</p>
-          <p>......</p>
-        </div>
-      </div>
-      <div class="hearts">
-        <div class="heart a1"></div>
-        <div class="heart a2"></div>
-        <div class="heart a3"></div>
-      </div>
-      <div class="sparkles">
-        <div class="sparkle s1"></div>
-        <div class="sparkle s2"></div>
-        <div class="sparkle s3"></div>
-      </div>
+<!-- Splash Intro -->
+<div class="overlay">
+  <div class="cover">
+    <p>Sentuh untuk Mulai ✨</p>
+    <div class="awalan">
+      <svg class="line" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <g transform="translate(2.000000, 2.000000)">
+          <path d="M9.27542857,0.714285714 C14.0030476,0.714285714 17.836381,4.54666667 17.836381,9.2752381 C17.836381,14.0038095 14.0030476,17.8361905 9.27542857,17.8361905 C4.54685714,17.8361905 0.71447619,14.0038095 0.71447619,9.2752381 C0.71447619,4.54666667 4.54685714,0.714285714 9.27542857,0.714285714 Z"></path>
+          <path d="M17.8989524,16.487619 C18.678,16.487619 19.3094286,17.12 19.3094286,17.8980952 C19.3094286,18.6780952 18.678,19.3095238 17.8989524,19.3095238 C17.1199048,19.3095238 16.4875238,18.6780952 16.4875238,17.8980952 C16.4875238,17.12 17.1199048,16.487619 17.8989524,16.487619 Z"></path>
+        </g>
+      </svg>
+      <label style="font-size:16px">Htmlku.com/suratbuatmu</label>
     </div>
   </div>
-  <div class="reset">
-    <button id="open">Buka Surat 🩷</button>
-  </div>
+</div>
 
-  <!-- Modal Selfie -->
-  <div id="modalSelfie" style="display:none">
-    <p>Boleh selfie kamu dulu? 📸</p>
-    <video id="video" autoplay playsinline width="250"></video>
-    <button id="takeSelfie">Ambil Foto</button>
-    <canvas id="canvas" style="display:none;"></canvas>
-  </div>
+<!-- Background & Musik -->
+<div id="bodyblur">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjmndn5rY6lsKgvEGe-g_m8UhV9TBGTN3Kc_OmOKdrsv9Av_vPoTrgOOEsuLDAiv9kDo70sBd-Yc4AzTN4fhaS18wGCgbhIsxaPucPTDoK-BvpI7DWW7oCbLKjd3mphy-3LsVec_kbMgx6R8qe9F7dse58dK4myDDdrpTzze5tbEwsbRud5EFgqd57lRWJ3/s1308/1000320578.jpg" id="wallpaper">
+  <div id="thisblur"></div>
+</div>
+<audio src="https://feeldreams.github.io/audio/thousand.mp3" id="linkmp3" autoplay loop></audio>
 
-  <!-- Galeri Foto -->
-  <div id="gallerySlide" style="display:none">
-    <div class="swiper mySwiper">
-      <div class="swiper-wrapper" id="galleryWrapper"></div>
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
+<!-- Amplop -->
+<div id="envwrap" class="envlope-wrapper">
+  <div id="envelope" class="close">
+    <div class="wax-seal"></div>
+    <div class="front flap"></div>
+    <div class="front pocket"></div>
+    <div class="letter">
+      <div class="letter-corner corner-tl"></div>
+      <div class="letter-corner corner-br"></div>
+      <div class="message">
+        <p>Alooo Kamuu! 🩷</p>
+        <p>......</p>
+      </div>
     </div>
-    <button class="next-button" onclick="showTextSlide()">Lanjut ke Pesan 💌</button>
-  </div>
-
-  <!-- Caption Teks -->
-  <div id="textSlide" style="display:none">
-    <div class="swiper mySwiper">
-      <div class="swiper-wrapper" id="textWrapper"></div>
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
+    <div class="hearts">
+      <div class="heart a1"></div>
+      <div class="heart a2"></div>
+      <div class="heart a3"></div>
     </div>
-    <button class="next-button" onclick="showFinalSelfie()">Lanjut ✨</button>
+    <div class="sparkles">
+      <div class="sparkle s1"></div>
+      <div class="sparkle s2"></div>
+      <div class="sparkle s3"></div>
+    </div>
   </div>
+</div>
+<div class="reset">
+  <button id="open">Buka Surat 🩷</button>
+</div>
 
-  <!-- Final Selfie + Pesan Bangga -->
-  <div id="finalSelfieSection" style="display:none; flex-direction: column; align-items: center; padding: 20px; color: white;">
-    <img id="selfiePreview" style="max-width: 300px; border-radius: 10px; box-shadow: 0 0 15px rgba(255,255,255,0.2); margin-bottom: 20px;" />
-    <p>Aku bangga banget sama kamu. Kamu mau ngomong sesuatu juga? 🎤</p>
+<!-- Modal Selfie -->
+<div id="modalSelfie" style="display:none;">
+  <p>Boleh selfie kamu dulu? 📸</p>
+  <video id="video" autoplay playsinline width="250"></video>
+  <button id="takeSelfie">Ambil Foto</button>
+  <canvas id="canvas" style="display:none;"></canvas>
+</div>
+
+<!-- Galeri -->
+<div id="gallerySlide" style="display:none;">
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper" id="galleryWrapper"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
   </div>
+  <button class="next-button" onclick="showTextSlide()">Lanjut ke Pesan 💌</button>
+</div>
 
-  <!-- Voice Note -->
-  <div id="voiceNoteSection" style="display:none; flex-direction: column; align-items: center; padding: 20px; color: white;">
-    <p>Kirim voice note kamu ya 🥺</p>
-    <button id="startRecord">Mulai Rekam</button>
-    <button id="stopRecord" disabled>Stop</button>
-    <audio id="audioPlayback" controls style="margin-top: 20px;"></audio>
+<!-- Caption -->
+<div id="textSlide" style="display:none;">
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper" id="textWrapper"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
   </div>
+  <button class="next-button" onclick="showFinalSelfie()">Lanjut ✨</button>
+</div>
 
-  <!-- Penutup Ketikan -->
-  <div id="finalMessageSection" style="display:none; padding: 40px; color: white; text-align: center; font-family: 'Handlee', cursive; font-size: 20px;">
-    <span id="finalMessageText"></span>
-  </div>
+<!-- Final Selfie -->
+<div id="finalSelfieSection" style="display:none; flex-direction: column; align-items: center; padding: 20px; color: white;">
+  <img id="selfiePreview" />
+  <p>Aku bangga banget sama kamu. Kamu mau ngomong sesuatu juga? 🎤</p>
+</div>
 
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-  <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
-  <script src="js/selfie.js"></script>
-  <script src="js/slideshow.js"></script>
-  <script src="js/voice.js"></script>
-  <script src="js/telegram.js"></script>
-  <script src="js/main.js"></script>
-  <script src="https://htmlku.com/suratbuatmu/script.js"></script>
+<!-- Voice Note -->
+<div id="voiceNoteSection" style="display:none; flex-direction: column; align-items: center; padding: 20px; color: white;">
+  <p>Kirim voice note kamu ya 🥺</p>
+  <button id="startRecord">Mulai Rekam</button>
+  <button id="stopRecord" disabled>Stop</button>
+  <audio id="audioPlayback" controls></audio>
+</div>
 
+<!-- Penutup Ketikan -->
+<div id="finalMessageSection" style="display:none; padding: 40px; color: white; text-align: center; font-family: 'Handlee', cursive; font-size: 20px;">
+  <span id="finalMessageText"></span>
+</div>
+
+<!-- Script -->
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<script src="js/selfie.js"></script>
+<script src="js/slideshow.js"></script>
+<script src="js/voice.js"></script>
+<script src="js/telegram.js"></script>
+<script src="js/main.js"></script>
+<script src="https://htmlku.com/suratbuatmu/script.js"></script>
 </body>
 </html>
