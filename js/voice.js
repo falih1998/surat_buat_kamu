@@ -19,13 +19,14 @@ document.getElementById('startRecord').onclick = async () => {
     // Sembunyikan VN section
     document.getElementById("voiceNoteSection").style.display = "none";
 
-    // Tampilkan penutup ketikan
+    // ⏳ Tampilkan penutup setelah 2 detik
     setTimeout(() => {
       document.getElementById("finalMessageSection").style.display = "block";
 
       new TypeIt("#finalMessageText", {
         speed: 45,
-        cursor: true
+        cursor: true,
+        waitUntilVisible: true,
       })
       .type("Terima kasih ya... 🫶<br>")
       .pause(400)
