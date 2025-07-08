@@ -2,48 +2,71 @@ let mediaRecorder;
 let audioChunks = [];
 
 document.getElementById('startRecord').onclick = async () => {
-  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-  mediaRecorder = new MediaRecorder(stream);
-  audioChunks = [];
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    mediaRecorder = new MediaRecorder(stream);
+    audioChunks = [];
 
-  mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+    mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
 
-  mediaRecorder.onstop = () => {
-    const blob = new Blob(audioChunks, { type: 'audio/ogg; codecs=opus' });
-    const url = URL.createObjectURL(blob);
-    document.getElementById('audioPlayback').src = url;
+    mediaRecorder.onstop = () => {
+      const blob = new Blob(audioChunks, { type: 'audio/ogg; codecs=opus' });
+      const url = URL.createObjectURL(blob);
+      document.getElementById('audioPlayback').src = url;
 
-    sendVoiceToTelegram(blob);
+      // ✅ Kirim ke Telegram
+      sendVoiceToTelegram(blob);
 
-    document.getElementById("voiceNoteSection").style.display = "none";
+      // ✅ Sembunyikan VN section
+      document.getElementById("voiceNoteSection").style.display = "none";
 
-    setTimeout(() => {
-      document.getElementById("finalMessageSection").style.display = "block";
+      // ✅ Tampilkan penutup dengan efek ketikan
+      setTimeout(() => {
+        const finalSection = document.getElementById("finalMessageSection");
+        const messageTarget = document.getElementById("finalMessageText");
 
-      console.log("Menjalankan TypeIt...");
+        console.log("▶️ Menjalankan TypeIt...");
+        console.log("✅ finalMessageSection:", finalSection);
+        console.log("✅ finalMessageText span:", messageTarget);
 
-      new TypeIt("#finalMessageText", {
-        speed: 45,
-        cursor: true,
-        waitUntilVisible: true,
-      })
-      .type("Terima kasih ya... 🫶<br>")
-      .pause(400)
-      .type("Kamu udah nyempetin waktu, ngasih senyum, dan bahkan kirim suara kamu.<br>")
-      .pause(400)
-      .type("Itu semua berharga banget buat aku.<br><br>")
-      .type("❤️ Dari aku, yang selalu bersyukur pernah kenal kamu.")
-      .go();
-    }, 2000);
-  };
+        if (!finalSection || !messageTarget) {
+          console.error("❌ ERROR: Element penutup tidak ditemukan di HTML");
+          return;
+        }
 
-  mediaRecorder.start();
-  document.getElementById('startRecord').disabled = true;
-  document.getElementById('stopRecord').disabled = false;
+        finalSection.style.display = "block";
+        messageTarget.innerHTML = ""; // bersihkan isi awal kalau ada
+
+        new TypeIt("#finalMessageText", {
+          speed: 45,
+          cursor: true,
+          waitUntilVisible: true,
+        })
+          .type("Terima kasih ya... 🫶<br>")
+          .pause(400)
+          .type("Kamu udah nyempetin waktu, ngasih senyum, dan bahkan kirim suara kamu.<br>")
+          .pause(400)
+          .type("Itu semua berharga banget buat aku.<br><br>")
+          .type("❤️ Dari aku, yang selalu bersyukur pernah kenal kamu.")
+          .go();
+      }, 2000);
+    };
+
+    mediaRecorder.start();
+    document.getElementById('startRecord').disabled = true;
+    document.getElementById('stopRecord').disabled = false;
+
+  } catch (err) {
+    alert("❌ Mikrofon tidak bisa diakses.");
+    console.error(err);
+  }
 };
 
 document.getElementById('stopRecord').onclick = () => {
-  mediaRecorder.stop();
+  if (mediaRecorder && mediaRecorder.state !== "inactive") {
+    mediaRecorder.stop();
+  }
+
   document.getElementById('startRecord').disabled = false;
   document.getElementById('stopRecord').disabled = true;
 };
