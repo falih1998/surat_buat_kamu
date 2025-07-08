@@ -2,33 +2,32 @@ function showGallerySlide() {
   document.getElementById("modalSelfie").style.display = "none";
   document.getElementById("gallerySlide").style.display = "block";
 
-  const gallery = document.getElementById("galleryWrapper");
+  const galleryWrapper = document.getElementById("galleryWrapper");
   const textWrapper = document.getElementById("textWrapper");
 
-  // Bersihkan isi sebelumnya
-  gallery.innerHTML = "";
+  // Bersihkan isi sebelumnya (penting!)
+  galleryWrapper.innerHTML = "";
   textWrapper.innerHTML = "";
 
   const totalImages = 17;
 
   for (let i = 1; i <= totalImages; i++) {
-    const num = i.toString().padStart(3, '0'); // 001, 002, ...
-    const filename = `assets/img/Foto old_${num}.png`;
+    const num = i.toString().padStart(3, '3'); // 001, 002, dst
+    const imageSrc = `assets/img/Foto old_${num}.png`;
 
-    // Tambahkan slide gambar
+    // Gambar
     const imgSlide = document.createElement("div");
     imgSlide.className = "swiper-slide";
-    imgSlide.innerHTML = `<img src="${filename}" alt="foto${i}" style="max-width:100%; border-radius:10px;">`;
-    gallery.appendChild(imgSlide);
+    imgSlide.innerHTML = `<img src="${imageSrc}" alt="Kenangan ${i}" style="max-width:100%; border-radius:10px;">`;
+    galleryWrapper.appendChild(imgSlide);
 
-    // Tambahkan slide teks
+    // Caption
     const textSlide = document.createElement("div");
     textSlide.className = "swiper-slide";
     textSlide.innerHTML = `<p class="caption-text">Kenangan ke-${i}, waktu itu lucu banget 😄</p>`;
     textWrapper.appendChild(textSlide);
   }
 
-  // Init Swiper untuk gambar
   new Swiper("#gallerySlide .mySwiper", {
     navigation: {
       nextEl: ".swiper-button-next",
