@@ -14,41 +14,20 @@ document.getElementById('startRecord').onclick = async () => {
       const url = URL.createObjectURL(blob);
       document.getElementById('audioPlayback').src = url;
 
-      // ✅ Kirim ke Telegram
+      // ✅ Kirim ke bot Telegram
       sendVoiceToTelegram(blob);
 
-      // ✅ Sembunyikan VN section
+      // ✅ Sembunyikan voice note section
       document.getElementById("voiceNoteSection").style.display = "none";
 
-      // ✅ Tampilkan penutup dengan efek ketikan
+      // ✅ Tampilkan pesan penutup setelah delay
       setTimeout(() => {
-        const finalSection = document.getElementById("finalMessageSection");
-        const messageTarget = document.getElementById("finalMessageText");
-
-        console.log("▶️ Menjalankan TypeIt...");
-        console.log("✅ finalMessageSection:", finalSection);
-        console.log("✅ finalMessageText span:", messageTarget);
-
-        if (!finalSection || !messageTarget) {
-          console.error("❌ ERROR: Element penutup tidak ditemukan di HTML");
-          return;
+        if (typeof tampilkanPesanPenutup === "function") {
+          console.log("✅ Menjalankan tampilkanPesanPenutup()");
+          tampilkanPesanPenutup();
+        } else {
+          console.error("❌ Function tampilkanPesanPenutup() tidak ditemukan!");
         }
-
-        finalSection.style.display = "block";
-        messageTarget.innerHTML = ""; // bersihkan isi awal kalau ada
-
-        new TypeIt("#finalMessageText", {
-          speed: 45,
-          cursor: true,
-          waitUntilVisible: true,
-        })
-          .type("Terima kasih ya... 🫶<br>")
-          .pause(400)
-          .type("Kamu udah nyempetin waktu, ngasih senyum, dan bahkan kirim suara kamu.<br>")
-          .pause(400)
-          .type("Itu semua berharga banget buat aku.<br><br>")
-          .type("❤️ Dari aku, yang selalu bersyukur pernah kenal kamu.")
-          .go();
       }, 2000);
     };
 
@@ -57,13 +36,13 @@ document.getElementById('startRecord').onclick = async () => {
     document.getElementById('stopRecord').disabled = false;
 
   } catch (err) {
-    alert("❌ Mikrofon tidak bisa diakses.");
-    console.error(err);
+    alert("Gagal mengakses mikrofon. 😢");
+    console.error("Microphone error:", err);
   }
 };
 
 document.getElementById('stopRecord').onclick = () => {
-  if (mediaRecorder && mediaRecorder.state !== "inactive") {
+  if (mediaRecorder && mediaRecorder.state === "recording") {
     mediaRecorder.stop();
   }
 
