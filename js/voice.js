@@ -13,15 +13,14 @@ document.getElementById('startRecord').onclick = async () => {
     const url = URL.createObjectURL(blob);
     document.getElementById('audioPlayback').src = url;
 
-    // Kirim ke Telegram
     sendVoiceToTelegram(blob);
 
-    // Sembunyikan VN section
     document.getElementById("voiceNoteSection").style.display = "none";
 
-    // ⏳ Tampilkan penutup setelah 2 detik
     setTimeout(() => {
       document.getElementById("finalMessageSection").style.display = "block";
+
+      console.log("Menjalankan TypeIt...");
 
       new TypeIt("#finalMessageText", {
         speed: 45,
